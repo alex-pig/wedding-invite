@@ -11,6 +11,8 @@ function doPost(e) {
   var allergies = e.parameter.allergies || '';
   var creative = e.parameter.creative || '';
   var drink = e.parameter.drink || '';
+  var children = e.parameter.childrenCount || '';
+  var childrenAge = e.parameter.childrenAge || '';
   
   // Логируем обработанные данные
   console.log('Обработанные данные:', {
@@ -19,18 +21,41 @@ function doPost(e) {
     willAttend: willAttend,
     allergies: allergies,
     creative: creative,
-    drink: drink
+    drink: drink,
+    children: children,
+    childrenAge: childrenAge
   });
   
-  // Добавляем строку с данными
-  sheet.appendRow([
+  // Дополнительная отладка для поля children
+  console.log('=== ОТЛАДКА GOOGLE APPS SCRIPT ===');
+  console.log('Параметр childrenCount получен:', e.parameter.childrenCount);
+  console.log('Параметр childrenAge получен:', e.parameter.childrenAge);
+  console.log('Все параметры:', JSON.stringify(e.parameter));
+  
+  // Проверяем все параметры по отдельности
+  console.log('Проверка всех параметров:');
+  for (let key in e.parameter) {
+    console.log(`${key}: ${e.parameter[key]}`);
+  }
+  console.log('=== КОНЕЦ ОТЛАДКИ GOOGLE APPS SCRIPT ===');
+  
+  // Создаем массив данных для записи
+  var rowData = [
     timestamp,        // Время отправки
     name,            // Имя и фамилия
     willAttend,      // Статус участия
     allergies,       // Аллергии
     creative,        // Творческое поздравление
-    drink            // Предпочтения по напиткам
-  ]);
+    drink,           // Предпочтения по напиткам
+    children,        // Количество детей
+    childrenAge      // Возраст детей
+  ];
+  
+  // Логируем финальный массив данных
+  console.log('Данные для записи в таблицу:', rowData);
+  
+  // Добавляем строку с данными
+  sheet.appendRow(rowData);
   
   console.log('Данные успешно добавлены в таблицу');
   return ContentService.createTextOutput("OK");
@@ -41,15 +66,15 @@ function createHeaders() {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   
   // Устанавливаем заголовки столбцов
-  sheet.getRange(1, 1, 1, 6).setValues([
-    ['Время отправки', 'Имя и фамилия', 'Статус участия', 'Аллергии', 'Творческое поздравление', 'Напиток']
+  sheet.getRange(1, 1, 1, 8).setValues([
+    ['Время отправки', 'Имя и фамилия', 'Статус участия', 'Аллергии', 'Творческое поздравление', 'Напиток', 'Количество детей', 'Возраст детей']
   ]);
   
   // Делаем заголовки жирными
-  sheet.getRange(1, 1, 1, 6).setFontWeight('bold');
+  sheet.getRange(1, 1, 1, 8).setFontWeight('bold');
   
   // Автоматически подгоняем ширину столбцов
-  sheet.autoResizeColumns(1, 6);
+  sheet.autoResizeColumns(1, 8);
   
   console.log('Заголовки таблицы созданы');
 }

@@ -170,8 +170,8 @@ function createGuestForm(index) {
       </div>
 
       <div class="form-group children-fields" style="display: none;">
-        <label for="childrenCount-${index}">Сколько детей?</label>
-        <input type="number" id="childrenCount-${index}" name="childrenCount_${index}" min="1" max="10">
+        <label for="children-${index}">Сколько детей?</label>
+        <input type="number" id="children-${index}" name="childrenCount_${index}" min="1" max="10">
       </div>
 
       <div class="form-group children-fields" style="display: none;">
@@ -213,6 +213,7 @@ function createGuestForm(index) {
 
       <div class="form-buttons">
         <button type="button" class="add-guest-btn">Добавить гостя</button>
+        ${index > 0 ? '<button type="button" class="remove-guest-btn">Удалить гостя</button>' : ''}
       </div>
     </form>
   `;
@@ -231,7 +232,7 @@ function updateSubmitButtonText() {
   }
 }
 
-// Обработка добавления гостей
+// Обработка добавления и удаления гостей
 function handleAddGuest() {
   document.addEventListener('click', function(e) {
     if (e.target.classList.contains('add-guest-btn')) {
@@ -247,6 +248,82 @@ function handleAddGuest() {
       const previousAddBtn = previousForm.querySelector('.add-guest-btn');
       if (previousAddBtn) {
         previousAddBtn.remove();
+      }
+      
+      // Обновляем текст кнопки отправки
+      updateSubmitButtonText();
+    } else if (e.target.classList.contains('remove-guest-btn')) {
+      const formToRemove = e.target.closest('.guest-form-single');
+      const formsContainer = document.getElementById('forms-container');
+      const allForms = formsContainer.querySelectorAll('.guest-form-single');
+      
+      // Удаляем форму
+      formToRemove.remove();
+      
+      // Переиндексируем оставшиеся формы
+      const remainingForms = formsContainer.querySelectorAll('.guest-form-single');
+      remainingForms.forEach((form, index) => {
+        form.setAttribute('data-form-index', index);
+        
+        // Обновляем имена всех полей в форме
+        const inputs = form.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+          const oldName = input.name;
+          if (oldName) {
+            // Обрабатываем специальные случаи для разных типов полей
+            let fieldName;
+            if (oldName.startsWith('name_')) {
+              fieldName = 'name';
+            } else if (oldName.startsWith('willAttend_')) {
+              fieldName = 'willAttend';
+            } else if (oldName.startsWith('hasChildren_')) {
+              fieldName = 'hasChildren';
+            } else if (oldName.startsWith('children_')) {
+              fieldName = 'children';
+            } else if (oldName.startsWith('childrenAge_')) {
+              fieldName = 'childrenAge';
+            } else if (oldName.startsWith('allergies_')) {
+              fieldName = 'allergies';
+            } else if (oldName.startsWith('creative_')) {
+              fieldName = 'creative';
+            } else if (oldName.startsWith('drink_')) {
+              fieldName = 'drink';
+            } else {
+              // Для остальных полей используем старую логику
+              fieldName = oldName.split('_')[0];
+            }
+            input.name = `${fieldName}_${index}`;
+          }
+          
+          const oldId = input.id;
+          if (oldId) {
+            const fieldName = oldId.split('-')[0];
+            input.id = `${fieldName}-${index}`;
+          }
+        });
+        
+        // Обновляем for атрибуты в label
+        const labels = form.querySelectorAll('label[for]');
+        labels.forEach(label => {
+          const oldFor = label.getAttribute('for');
+          if (oldFor) {
+            const fieldName = oldFor.split('-')[0];
+            label.setAttribute('for', `${fieldName}-${index}`);
+          }
+        });
+      });
+      
+      // Добавляем кнопку "Добавить гостя" в последнюю форму, если её нет
+      const lastForm = remainingForms[remainingForms.length - 1];
+      if (lastForm && !lastForm.querySelector('.add-guest-btn')) {
+        const formButtons = lastForm.querySelector('.form-buttons');
+        if (formButtons) {
+          const addButton = document.createElement('button');
+          addButton.type = 'button';
+          addButton.className = 'add-guest-btn';
+          addButton.textContent = 'Добавить гостя';
+          formButtons.appendChild(addButton);
+        }
       }
       
       // Обновляем текст кнопки отправки
@@ -308,8 +385,42 @@ async function submitSingleForm(form) {
     throw new Error('Пожалуйста, заполните все обязательные поля: ' + missingFields.join(', '));
   }
 
+  // Отладочная информация - выводим все параметры
+  console.log('Отправляемые параметры в Google таблицу:');
+  for (let [key, value] of params.entries()) {
+    console.log(`${key}: ${value}`);
+  }
+  
+  // Дополнительная отладка для поля children
+  console.log('=== ОТЛАДКА ПОЛЯ CHILDREN ===');
+  console.log('Индекс формы:', formIndex);
+  console.log('Ищем поле с именем:', `childrenCount_${formIndex}`);
+  
+  const childrenField = form.querySelector(`input[name="childrenCount_${formIndex}"]`);
+  console.log('Поле children найдено:', childrenField);
+  if (childrenField) {
+    console.log('Значение поля children:', childrenField.value);
+    console.log('Имя поля children:', childrenField.name);
+    console.log('Тип поля:', childrenField.type);
+    console.log('ID поля:', childrenField.id);
+  } else {
+    console.log('Поле children НЕ НАЙДЕНО!');
+    console.log('Все поля в форме:');
+    form.querySelectorAll('input, textarea').forEach(input => {
+      console.log(`- ${input.name}: ${input.value} (ID: ${input.id})`);
+    });
+    
+    // Попробуем найти поле по ID
+    const childrenFieldById = form.querySelector(`#children-${formIndex}`);
+    console.log('Поле children по ID найдено:', childrenFieldById);
+    if (childrenFieldById) {
+      console.log('Значение поля children по ID:', childrenFieldById.value);
+    }
+  }
+  console.log('=== КОНЕЦ ОТЛАДКИ ===');
+  
   // Отправка в Google таблицу
-  const googleResponse = await retryAsync(() => fetch('https://script.google.com/macros/s/AKfycbzr_G1g10OMvbNQ5Xb3aizFUrCnxGwqpQ-boM8suhzWX4AHK0Yay5I5_-bhpsIvGuK5/exec', {
+  const googleResponse = await retryAsync(() => fetch('https://script.google.com/macros/s/AKfycbzGKABgBkNiQwBt97V3sRT6y6d1WtF1gKrO3x2mM5DOHU_VWK_SmApNSr9Ev4ha8L8O/exec', {
     method: 'POST',
     body: params
   }), 10, 1000);
@@ -465,11 +576,28 @@ function handleWillNotAttend() {
     } else if (e.target.name && e.target.name.startsWith('willAttend_') && e.target.value === 'Обязательно буду!') {
       const form = e.target.closest('form');
       
-      // Показываем все поля обратно
-      const fieldsToShow = form.querySelectorAll('.form-group');
+      // Показываем все поля обратно, кроме полей для детей
+      const fieldsToShow = form.querySelectorAll('.form-group:not(.children-fields)');
       fieldsToShow.forEach(field => {
         field.style.display = 'block';
       });
+      
+      // Проверяем состояние поля hasChildren и показываем/скрываем поля для детей соответственно
+      const hasChildrenRadio = form.querySelector('input[name*="hasChildren"]:checked');
+      const childrenFields = form.querySelectorAll('.children-fields');
+      
+      if (hasChildrenRadio && hasChildrenRadio.value === 'да') {
+        childrenFields.forEach(field => {
+          field.style.display = 'block';
+        });
+      } else {
+        childrenFields.forEach(field => {
+          field.style.display = 'none';
+          // Очищаем поля
+          const inputs = field.querySelectorAll('input, textarea');
+          inputs.forEach(input => input.value = '');
+        });
+      }
       
       // Показываем кнопку "Добавить гостя" только в первой форме
       const formIndex = form.getAttribute('data-form-index');

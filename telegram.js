@@ -91,7 +91,7 @@ function formatRSVPMessage(formData) {
   const keys = Array.from(formData.keys());
   
   // Находим данные для текущей формы
-  let name = '', willAttend = '', hasChildren = '', childrenCount = '', childrenAge = '', allergies = '', creative = '', drink = '';
+  let name = '', willAttend = '', hasChildren = '', children = '', childrenAge = '', allergies = '', creative = '', drink = '';
   
   keys.forEach(key => {
     if (key === 'name' || key.startsWith('name_')) {
@@ -101,7 +101,7 @@ function formatRSVPMessage(formData) {
     } else if (key === 'hasChildren' || key.startsWith('hasChildren_')) {
       hasChildren = formData.get(key);
     } else if (key === 'childrenCount' || key.startsWith('childrenCount_')) {
-      childrenCount = formData.get(key);
+      children = formData.get(key);
     } else if (key === 'childrenAge' || key.startsWith('childrenAge_')) {
       childrenAge = formData.get(key);
     } else if (key === 'allergies' || key.startsWith('allergies_')) {
@@ -114,16 +114,19 @@ function formatRSVPMessage(formData) {
   });
   
   // Отладочная информация
+  console.log('=== ОТЛАДКА TELEGRAM ===');
+  console.log('Все ключи FormData:', keys);
   console.log('Данные для Telegram сообщения:', {
     name,
     willAttend,
     hasChildren,
-    childrenCount,
+    children,
     childrenAge,
     allergies,
     creative,
     drink
   });
+  console.log('=== КОНЕЦ ОТЛАДКИ TELEGRAM ===');
   
   const emoji = willAttend === 'Обязательно буду!' ? '✅' : '❌';
   const status = willAttend === 'Обязательно буду!' ? 'ПРИДЁТ' : 'НЕ ПРИДЁТ';
@@ -137,8 +140,8 @@ ${emoji} <b>Статус:</b> ${status}
 
   if (hasChildren === 'да') {
     message += `\n👶 <b>Дети:</b> Да`;
-    if (childrenCount) {
-      message += ` (${childrenCount} ${childrenCount === '1' ? 'ребёнок' : childrenCount < '5' ? 'ребёнка' : 'детей'})`;
+    if (children) {
+      message += ` (${children} ${children === '1' ? 'ребёнок' : children < '5' ? 'ребёнка' : 'детей'})`;
     }
     if (childrenAge) {
       message += `\n📏 <b>Возраст детей:</b> ${childrenAge}`;
