@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Влад + Саша - Свадьба</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/miss-katherine" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <!-- Header с меню -->
+    <header class="header">
+      <div class="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </header>
+
+    <div class="main-content">
+      <!-- Первый блок - Hero секция -->
+      <div class="hero-section">
+        <div class="hero-text">
+          <p class="hero-subtitle">ПРИГЛАШАЕМ</p>
+          <p class="hero-subtitle">ВАС НА НАШУ СВАДЬБУ</p>
+        </div>
+        
+        <div class="names-section">
+          <div class="background-text-1">НАША</div>
+          <div class="background-text-2">СВА</div>
+          <div class="background-text-3">ДЬБА</div>
+          <div class="names-container">
+            <h1 class="groom-name">Владислав</h1>
+            <p class="and-text">and</p>
+            <h1 class="bride-name">Александра</h1>
+          </div>
+        </div>
+        
+        <div class="date-section">
+          <p class="wedding-date">25 ОКТЯБРЯ 2025</p>
+          <p class="invitation-text">БУДЕМ РАДЫ РАЗДЕЛИТЬ ЭТОТ ДЕНЬ С ВАМИ</p>
+        </div>
+        
+        <!-- Таймер обратного отсчета -->
+        <div class="countdown-section">
+          <div class="countdown-timer" id="hero-countdown">
+            <div class="countdown-item">
+              <span class="number" id="hero-weeks">0</span>
+              <span class="label">недель</span>
+            </div>
+            <div class="countdown-item">
+              <span class="number" id="hero-days">0</span>
+              <span class="label">дней</span>
+            </div>
+            <div class="countdown-item">
+              <span class="number" id="hero-hours">0</span>
+              <span class="label">часов</span>
+            </div>
+            <div class="countdown-item">
+              <span class="number" id="hero-minutes">0</span>
+              <span class="label">минут</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Календарь -->
+        <div class="calendar-section">
+          <div class="calendar-table">
+            <div class="calendar-header">Октябрь 2025</div>
+            <table class="calendar-mini">
+              <thead>
+                <tr>
+                  <th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
+                <tr><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td></tr>
+                <tr><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
+                <tr><td>21</td><td>22</td><td>23</td><td>24</td><td class="calendar-heart">25 <span class="heart">❤️</span></td><td>26</td><td>27</td></tr>
+                <tr><td>28</td><td>29</td><td>30</td><td>31</td><td></td><td></td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Остальные секции пока оставляем как есть -->
+      <!-- Второй блок - Приглашение -->
+      <div class="invitation-block">
+        <div class="invitation-greeting">
+          <p class="greeting-line-1">Дорогой</p>
+          <p class="greeting-line-2">Гость!</p>
+        </div>
+        
+        <div class="invitation-message">
+          <p>Мы рады сообщить Вам, что</p>
+          <p>25.10.2025 состоится самое</p>
+          <p>главное торжество в нашей жизни</p>
+          <p>- день нашей свадьбы!</p>
+          <p>Приглашаем Вас разделить с нами</p>
+          <p>радость этого незабываемого дня.</p>
+        </div>
+        
+        <div class="event-details">
+          <p>25.10.2025 в 17:30</p>
+          <p>станица Старонижестеблиевская</p>
+          <p>ул. Советская 78А</p>
+          <div class="map-container">
+            <a href="https://yandex.ru/maps/-/CHdsZR9C" target="_blank" class="map-link">
+              <img src="map.png" alt="Карта места проведения свадьбы" class="map-image">
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Третий блок - Фотографии жениха и невесты -->
+      <div class="couple-profiles">
+        <div class="quote-section">
+          <p class="quote-line-1">Там, где посеяна</p>
+          <p class="quote-line-2">любовь, растет радость.</p>
+        </div>
+        
+        <div class="profiles-container">
+          <div class="profile-item">
+            <div class="profile-image">
+              <img src="groom.jpg" alt="Жених" class="profile-photo">
+            </div>
+            <p class="profile-label">Жених</p>
+          </div>
+          
+          <div class="profile-item">
+            <div class="profile-image">
+              <img src="bride.jpg" alt="Невеста" class="profile-photo">
+            </div>
+            <p class="profile-label">Невеста</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Четвертый блок - Пожелания по подаркам и информация -->
+      <div class="gift-wishes">
+        <h2 class="gift-wishes-title">ПОЖЕЛАНИЯ ПО ПОДАРКАМ</h2>
+        
+        <div class="gift-wishes-content">
+          <p class="gift-text">
+            Ваше присутствие в день нашей свадьбы - самый значимый подарок для нас!
+          </p>
+          
+          <p class="gift-text">
+            Мы понимаем, что дарить цветы на свадьбу - это традиция, но мы не сможем насладиться их красотой в полной мере...
+          </p>
+          
+          <p class="gift-text">
+            Будем рады любой другой альтернативе (вино или в денежном эквиваленте).
+          </p>
+        </div>
+        
+        <div class="note-section">
+          <h3 class="note-title">ПРИМЕЧАНИЕ</h3>
+          <p class="note-text">
+            Будем благодарны, если вы воздержитесь от криков "Горько" на празднике, ведь поцелуй — это знак выражения чувств, он не может быть по заказу.
+          </p>
+        </div>
+        
+        <div class="adult-event-section">
+          <p class="adult-event-text">
+            Чтобы всем было комфортно, мы сделали наш праздник мероприятием для взрослых. Будем благодарны, если вы сможете прийти без детей. Спасибо!
+          </p>
+        </div>
+        
+        <div class="confirmation-section">
+          <h3 class="confirmation-title">
+            ПОДТВЕРЖДЕНИЕ
+          </h3>
+          <p class="confirmation-text">
+            Пожалуйста подтвердите свое<br>
+            присутствие до 01.10.2025
+          </p>
+        </div>
+        
+        <div class="photo-section">
+          <h3 class="photo-title">ФОТО</h3>
+          <p class="photo-text">
+            Опубликуйте фото дня нашей<br>
+            свадьбы в группе телеграмм.<br>
+            <a href="https://t.me/+x90TG7VuUU4yZGQ6" target="_blank" class="telegram-link">Перейти в группу</a>
+          </p>
+          <div class="telegram-qr">
+            <img src="telegram_qr.jpg" alt="QR-код Telegram группы" style="max-width: 150px; height: auto; border-radius: 8px;">
+          </div>
+        </div>
+        
+        <div class="closing-message">
+          <p class="closing-line-1">Ждем Вас на</p>
+          <p class="closing-line-2">свадьбе!</p>
+        </div>
+        
+        <div class="dress-code-note">
+          <p>При выборе нарядов на наше</p>
+          <p>торжество по возможности</p>
+          <p>придержитесь следующих цветов:</p>
+        </div>
+        
+        <div class="dress-code-video">
+          <img src="dress_code.png" alt="Дресс-код" style="max-width: 100%; height: auto; border-radius: 8px;">
+        </div>
+      </div>
+
+      <!-- Тайминг -->
+      <div class="timeline">
+        <h3 class="timeline-title">Тайминг</h3>
+        <div class="timeline-path">
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="time">17:30</div>
+              <div class="event">Welcome</div>
+              <div class="description"></div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="time">18:00</div>
+              <div class="event">Начало мероприятия</div>
+              <div class="description"></div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="time">20:00</div>
+              <div class="event">Первый танец</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="time">22:00</div>
+              <div class="event">Торт</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="time">23:30</div>
+              <div class="event">Семейный очаг</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Анкета гостя -->
+      <div class="guest-form">
+        <h3 class="form-title">Анкета гостя</h3>
+        <div id="forms-container">
+          <form id="rsvp-form" class="guest-form-single" data-form-index="0">
+            <div class="form-group">
+              <label for="name-0">Имя и фамилия</label>
+              <input type="text" id="name-0" name="name_0" required>
+            </div>
+
+            <div class="form-group attendance-group">
+              <label>Подтвердите присутствие</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="willAttend_0" value="Обязательно буду!" required>
+                  <span>Обязательно буду!</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="willAttend_0" value="К сожалению, не смогу">
+                  <span>К сожалению, не смогу</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Будет ли с вами на празднике ребенок?</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="hasChildren_0" value="да">
+                  <span>Да</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="hasChildren_0" value="нет" checked>
+                  <span>Нет</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group children-fields" style="display: none;">
+              <label for="childrenCount-0">Сколько детей?</label>
+              <input type="number" id="childrenCount-0" name="childrenCount_0" min="1" max="10">
+            </div>
+
+            <div class="form-group children-fields" style="display: none;">
+              <label for="childrenAge-0">Какого возраста?</label>
+              <textarea id="childrenAge-0" name="childrenAge_0" placeholder="Например: 5 лет, 8 лет"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="allergies-0">Есть ли аллергические реакции?</label>
+              <textarea id="allergies-0" name="allergies_0" placeholder="Если да, то напишите какие, чтобы мы позаботились о вас."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="creative-0">Планируете поздравлять творчески?</label>
+              <textarea id="creative-0" name="creative_0" placeholder="Если да то оставьте ваш номер телефона."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Ваши предпочтения по напиткам</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="drink_0" value="Крепкий алкоголь">
+                  <span>Крепкий алкоголь</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="drink_0" value="Красное вино">
+                  <span>Красное вино</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="drink_0" value="Белое вино">
+                  <span>Белое вино</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="drink_0" value="Безалкогольные напитки">
+                  <span>Безалкогольные напитки</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-buttons">
+              <button type="button" class="add-guest-btn">Добавить гостя</button>
+            </div>
+          </form>
+        </div>
+        
+        <!-- Общая кнопка отправки -->
+        <div class="submit-all-container">
+          <button type="button" class="submit-all-btn">ОТПРАВИТЬ ВСЕ АНКЕТЫ</button>
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- Сообщение об успешной отправке -->
+    <div id="thanks" class="thanks-message" style="display:none">
+      Спасибо! Ваш ответ сохранён и отправлен в Telegram.
+    </div>
+  </div>
+
+  <script src="telegram.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
