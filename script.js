@@ -44,7 +44,7 @@ function adjustFontSize() {
 
 // Таймер обратного отсчета
 function updateCountdown() {
-  const weddingDate = new Date('2025-10-25T18:00:00');
+  const weddingDate = new Date('2025-10-25T17:30:00');
   const now = new Date();
   const difference = weddingDate - now;
 
@@ -66,26 +66,13 @@ function updateCountdown() {
     if (heroHoursElement) heroHoursElement.textContent = hours;
     if (heroMinutesElement) heroMinutesElement.textContent = minutes;
     
-    // Обновляем основной таймер
-    const mainDaysElement = document.getElementById('main-days');
-    const mainHoursElement = document.getElementById('main-hours');
-    const mainMinutesElement = document.getElementById('main-minutes');
-    const mainSecondsElement = document.getElementById('main-seconds');
-    
-    if (mainDaysElement) mainDaysElement.textContent = days;
-    if (mainHoursElement) mainHoursElement.textContent = hours;
-    if (mainMinutesElement) mainMinutesElement.textContent = minutes;
-    if (mainSecondsElement) mainSecondsElement.textContent = seconds;
+    // Основной таймер не используется в данной версии
   } else {
     // Если свадьба уже прошла
     const heroCountdown = document.getElementById('hero-countdown');
-    const mainCountdown = document.getElementById('main-countdown');
     
     if (heroCountdown) {
       heroCountdown.innerHTML = '<p style="font-size: 1.2rem; color: #000;">Сегодня наш день! 🎉</p>';
-    }
-    if (mainCountdown) {
-      mainCountdown.innerHTML = '<p style="font-size: 1.2rem; color: #000;">Сегодня наш день! 🎉</p>';
     }
   }
 }
